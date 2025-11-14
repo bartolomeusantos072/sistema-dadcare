@@ -28,7 +28,7 @@ document.getElementById('formAlterarSenha').addEventListener('submit', async (ev
     if (sucesso) {
         mostrarMensagem(msg || 'Senha alterada com sucesso!', 'green');
         // Pode redirecionar para a página de login ou outra página após sucesso
-        window.location.href = '/login.html';  // Exemplo de redirecionamento
+        window.location.href = '/index.html';  // Exemplo de redirecionamento
     } else {
         mostrarMensagem(msg || 'Não foi possível alterar a senha. Tente novamente.', 'red');
     }

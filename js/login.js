@@ -1,5 +1,5 @@
-import { loginUsuario } from './api.js';
-import { mostrarMensagem } from './utils.js';
+import { loginUsuario } from '../api/usuarios.js';
+import { mostrarMensagem } from '../api/utils.js';
 
 document.getElementById('formLogin').addEventListener('submit', async (event) => {
     event.preventDefault(); // Impede o reload da página

@@ -2,34 +2,6 @@ import { getAuthHeaders, tratarErroResponse } from "./utils.js";
 
 const API_USUARIOS = "https://dadcare-backend.onrender.com/usuarios";
 
-// --- LOGIN ---
-export async function loginUsuario(email, senha) {
-  try {
-    const res = await fetch(API_USUARIOS + "/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, senha }),
-    });
-
-    if (!res.ok)
-      return await tratarErroResponse(res, "Erro ao efetuar login");
-
-    const data = await res.json();
-
-    if (data.usuario && data.token) {
-      localStorage.setItem("usuarioId", data.usuario.id);
-      localStorage.setItem("usuarioNome", data.usuario.nome);
-      localStorage.setItem("token", data.token);
-      return { sucesso: true, user: data.usuario };
-    } else {
-      return { sucesso: false, msg: "Usuário ou senha incorretos" };
-    }
-  } catch (error) {
-    console.error("Erro ao fazer login:", error);
-    return { sucesso: false, msg: "Erro de conexão com a API" };
-  }
-}
-
 // --- CADASTRAR ---
 export async function cadastrarUsuario(nome, email, senha, categoria) {
   try {
@@ -49,6 +21,37 @@ export async function cadastrarUsuario(nome, email, senha, categoria) {
     return { sucesso: false, msg: "Erro de conexão com a API" };
   }
 }
+// --- LOGIN ---
+export async function loginUsuario(email, senha) {
+  try {
+    const res = await fetch(API_USUARIOS + "/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, senha }),
+    });
+
+    if (!res.ok)
+      return await tratarErroResponse(res, "Erro ao efetuar login");
+
+    const data = await res.json();
+
+    if (data.usuario && data.token) {
+      // Armazenar o token em um cookie com HttpOnly
+      document.cookie = `token=${data.token}; HttpOnly; Secure; path=/; max-age=3600`;
+      localStorage.setItem("usuarioId", data.usuario.id);
+      localStorage.setItem("usuarioNome", data.usuario.nome);
+      return { sucesso: true, user: data.usuario };
+    } else {
+      return { sucesso: false, msg: "Usuário ou senha incorretos" };
+    }
+  } catch (error) {
+    console.error("Erro ao fazer login:", error);
+    return { sucesso: false, msg: "Erro de conexão com a API" };
+  }
+}
+
+
+
 
 // --- RECUPERAR SENHA ---
 export async function recuperarSenha(email) {

@@ -1,5 +1,5 @@
-import { cadastrarUsuario } from './api.js';
-import { mostrarMensagem } from './utils.js';
+import { cadastrarUsuario } from '../api/usuarios.js';
+import { mostrarMensagem } from '../api/utils.js';
 
 document.getElementById('formCadastro').addEventListener('submit', async (event) => {
     event.preventDefault(); // Previne o envio padrão do formulário
@@ -39,7 +39,7 @@ document.getElementById('formCadastro').addEventListener('submit', async (event)
     if (sucesso) {
         mostrarMensagem('Cadastro realizado com sucesso! Redirecionando...', 'green');
         setTimeout(() => {
-            window.location.href = 'login.html'; // Redireciona para a página de login após o cadastro
+            window.location.href = 'index.html'; // Redireciona para a página de login após o cadastro
         }, 1500);
     } else {
         mostrarMensagem(msg, 'red');
