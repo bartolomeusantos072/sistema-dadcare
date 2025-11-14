@@ -53,16 +53,23 @@ export async function cadastrarUsuario(nome, email, senha, categoria) {
 // --- RECUPERAR SENHA ---
 export async function recuperarSenha(email) {
   try {
-    const res = await fetch(API_USUARIOS + "/recovery", {
+    const res = await fetch(API_USUARIOS + "/recovery/request", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email }),
     });
 
-    if (!res.ok)
+    if (!res.ok) {
       return await tratarErroResponse(res, "Erro ao recuperar senha");
+    }
 
     const data = await res.json();
+
+    // Armazenando o token no localStorage (ou sessionStorage)
+    if (data.token) {
+      localStorage.setItem("recuperacaoToken", data.token);
+    }
+
     return {
       sucesso: true,
       msg: data.msg || "Instruções enviadas para o e-mail.",
@@ -72,6 +79,31 @@ export async function recuperarSenha(email) {
     return { sucesso: false, msg: "Erro de conexão com a API" };
   }
 }
+
+
+// --- CONFIRMAR RECUPERAÇÃO DE SENHA ---
+export async function confirmarRecuperacaoSenha(token, novaSenha) {
+  try {
+    const res = await fetch(API_USUARIOS + "/recovery/confirm", {  // Alteração aqui para /recovery/confirm
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token, novaSenha }),
+    });
+
+    if (!res.ok)
+      return await tratarErroResponse(res, "Erro ao confirmar recuperação de senha");
+
+    const data = await res.json();
+    return {
+      sucesso: true,
+      msg: data.msg || "Senha alterada com sucesso!",
+    };
+  } catch (error) {
+    console.error("Erro ao confirmar recuperação de senha:", error);
+    return { sucesso: false, msg: "Erro de conexão com a API" };
+  }
+}
+
 
 // --- LISTAR USUÁRIOS ---
 export async function listarUsuarios() {
@@ -90,6 +122,10 @@ export async function listarUsuarios() {
     return { sucesso: false, msg: "Erro de conexão com a API" };
   }
 }
+
+
+
+
 
 // --- BUSCAR USUÁRIO POR ID ---
 export async function buscarUsuario(id) {

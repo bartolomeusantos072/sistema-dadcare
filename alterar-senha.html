@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alterar Senha</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>Alterar Senha</h2>
+
+  <form id="formAlterarSenha">
+    <fieldset>
+      <legend>Nova Senha:</legend>
+      <input type="password" id="novaSenha" name="novaSenha" required minlength="6" placeholder="Digite a nova senha"><br><br>
+    </fieldset>
+
+    <button type="submit" id="alterarSenhaBtn">Alterar Senha</button>
+  </form>
+
+  <div id="mensagem" style="display: none; margin-top: 20px; font-weight: bold; color: red;"></div>
+
+  <script src="alterar.js"></script> <!-- Aqui você coloca o JS que lida com a alteração da senha -->
+</body>
+</html>

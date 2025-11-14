@@ -25,9 +25,17 @@ document.getElementById('formRecuperar').addEventListener('submit', async (event
     botao.disabled = false;
     botao.textContent = 'Recuperar senha';
 
-    // Mostra mensagem de acordo com o resultado
+    // Se a recuperação for bem-sucedida, armazenar o token
     if (sucesso) {
+        // O token de recuperação é armazenado no localStorage
+        // Isso permite que o frontend envie o token automaticamente quando o usuário for alterar a senha
+        localStorage.setItem("recuperacaoToken", msg.token);
+
         mostrarMensagem(msg || 'Instruções de recuperação enviadas ao seu e-mail.', 'green');
+        
+        // Redireciona para a página de alteração de senha (se necessário)
+        window.location.href = '/alterar-senha.html';  // Exemplo de redirecionamento
+
     } else {
         mostrarMensagem(msg || 'Não foi possível enviar o e-mail de recuperação.', 'red');
     }
