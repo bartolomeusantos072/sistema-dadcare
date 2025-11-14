@@ -1,29 +1,8 @@
-import {  getAuthHeaders, tratarErroResponse, buildQuery } from "./utils.js";
+import {  getAuthHeaders, tratarErroResponse, buildQuery } from "../api/utils.js";
 
 // URL base da sua API (exemplo JSON Server ou backend real)
 const API_USUARIOS = "https://api-medicare-storage.onrender.com";
 
-// --- Função utilitária para tratar respostas de erro ---
-async function tratarErroResponse(res, msgPadrao) {
-  const textErro = await res.text();
-  let msgErro;
-
-  try {
-    const errorData = JSON.parse(textErro);
-    msgErro =
-      errorData.msg ||
-      errorData.error ||
-      errorData.message ||
-      textErro;
-  } catch {
-    msgErro = textErro;
-  }
-
-  return {
-    sucesso: false,
-    msg: msgErro || msgPadrao || "Erro desconhecido na API",
-  };
-}
 
 // --- LOGIN ---
 export async function loginUsuario(email, senha) {

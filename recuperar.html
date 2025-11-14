@@ -4,24 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Recuperar Senha</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
   <h2>Recuperação de login</h2>
-  <form>
 
+  <!-- Adicionando o formulário -->
+  <form id="formRecuperar">
     <fieldset>
       <legend>E-mail:</legend>
       <input type="email" id="email" name="email" required><br><br>
     </fieldset>
-    
+
     <h3>O código será enviado para o e-mail</h3>
-    
-    <button id="recuperar">Enviar</button>
-    
+
+    <button type="submit" id="recuperar">Enviar</button>
   </form>
-    <div id="mensagem" style="margin-top: 20px; font-weight: bold;"></div> <!-- Div para exibir mensagens -->
-    
-  <script src="recuperar.js"></script> <!-- Coloque seu JS separado ou embutido -->
+
+  <!-- Div para exibir as mensagens de sucesso ou erro -->
+  <div id="mensagem" style="margin-top: 20px; font-weight: bold;"></div>
+
+  <script type="module" src="./js/recuperar.js"></script> <!-- Seu JS -->
 </body>
 </html>

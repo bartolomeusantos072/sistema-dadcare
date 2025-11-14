@@ -60,7 +60,7 @@ export async function recuperarSenha(email) {
     });
 
     if (!res.ok) {
-      return await tratarErroResponse(res, "Erro ao recuperar senha");
+      return await tratarErroResponse(res, "Erro emai não encontrado");
     }
 
     const data = await res.json();

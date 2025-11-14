@@ -1,5 +1,5 @@
-import { recuperarSenha } from './api.js';
-import { mostrarMensagem } from './utils.js';
+import { recuperarSenha } from '../api/usuarios.js';
+import { mostrarMensagem } from '../api/utils.js';
 
 document.getElementById('formRecuperar').addEventListener('submit', async (event) => {
     event.preventDefault(); // Impede o reload da página
